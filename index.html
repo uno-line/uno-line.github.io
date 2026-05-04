@@ -6,7 +6,10 @@
     <title>UNO | Світ Простих Речей</title>
     <link rel="stylesheet" href="simple-style.css">
     <style>
-        body { background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop'); }
+        body { 
+            background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), 
+                              url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop'); 
+        }
         
         .hub-grid {
             display: grid;
@@ -24,8 +27,8 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: 0.3s;
             display: flex;
-            align-items: center; /* Центрування іконки та тексту по вертикалі */
-            gap: 20px; /* Трохи збільшив відступ */
+            align-items: center;
+            gap: 20px;
         }
 
         .hub-card:hover {
@@ -35,14 +38,14 @@
 
         .hub-icon { 
             font-size: 24px; 
-            width: 30px; /* Фіксована ширина для іконки */
-            text-align: center; /* Центрування самої іконки всередині блоку */
-            flex-shrink: 0; /* Щоб іконка не стискалася */
+            width: 30px; 
+            text-align: center; 
+            flex-shrink: 0; 
         }
 
         .hub-info { 
             text-align: left; 
-            flex: 1; /* Текстовий блок займає весь залишок місця */
+            flex: 1; 
         }
 
         .hub-name { display: block; font-weight: bold; color: var(--accent-color); }
@@ -50,6 +53,14 @@
     </style>
 </head>
 <body>
+
+    <div class="top-menu">
+        <div class="menu-icon">☰</div>
+        <div class="menu-list">
+            <a href="index.html">Оновити сторінку</a>
+            <a href="https://github.com/" target="_blank">Проект на GitHub</a>
+        </div>
+    </div>
 
     <div class="simple-container">
         <h1 class="brand-name">UNO</h1>
@@ -65,7 +76,8 @@
             </a>
 
             <a href="calc/" class="hub-card">
-                <div class="hub-icon">🔢</div> <div class="hub-info">
+                <div class="hub-icon">🔢</div>
+                <div class="hub-info">
                     <span class="hub-name">Калькулятор</span>
                     <span class="hub-desc">Звичайний та інженерний режими</span>
                 </div>
@@ -81,5 +93,42 @@
         </div>
     </div>
 
-    </body>
+    <div class="simple-footer">
+        <div class="footer-icon" onclick="showModal('info')">❓</div>
+        <div class="footer-icon" onclick="showModal('contact')">✉️</div>
+    </div>
+
+    <div id="modalInfo" class="modal-info">
+        <p><strong>UNO</strong> — це ваша персональна підбірка корисних інструментів. Тут немає реклами, лише чиста функціональність для щоденних завдань.</p>
+        <button class="modal-close" onclick="closeModal()">Закрити</button>
+    </div>
+
+    <div id="modalContact" class="modal-info">
+        <p>З питань розвитку екосистеми <strong>UNO</strong> звертайтесь:<br><br>burkotun.uno@gmail.com</p>
+        <button class="modal-close" onclick="closeModal()">Закрити</button>
+    </div>
+
+    <script>
+        // --- Управління інтерфейсом ---
+        function showModal(type) {
+            closeModal(); 
+            if(type === 'info') document.getElementById('modalInfo').style.display = 'block';
+            if(type === 'contact') document.getElementById('modalContact').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.querySelectorAll('.modal-info').forEach(m => m.style.display = 'none');
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-info')) closeModal();
+        }
+
+        // Обробка меню
+        document.querySelector('.menu-icon').addEventListener('click', function() {
+            document.querySelector('.menu-list').classList.toggle('active');
+        });
+    </script>
+
+</body>
 </html>
