@@ -6,7 +6,10 @@
     <title>UNO | Калькулятор</title>
     <link rel="stylesheet" href="../simple-style.css">
     <style>
-        body { background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop'); }
+        body { 
+            background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), 
+                              url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop'); 
+        }
         
         .calc-display {
             width: 100%;
@@ -20,6 +23,7 @@
             color: var(--accent-color);
             min-height: 70px;
             word-wrap: break-word;
+            box-sizing: border-box;
         }
 
         .mode-switch {
@@ -60,11 +64,11 @@
             font-size: 18px;
             cursor: pointer;
             transition: 0.2s;
+            outline: none;
         }
 
         .calc-btn:active { background: var(--accent-color); color: #000; }
         .btn-op { color: var(--accent-color); font-weight: bold; }
-        .btn-eq { background: var(--accent-color); color: #000; grid-column: span 2; }
         
         .eng-panel { display: none; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px; }
         .eng-panel.active { display: grid; }
@@ -72,7 +76,17 @@
 </head>
 <body>
 
-    <a href="../" class="home-link"><div class="home-icon">🏠</div></a>
+    <a href="../" class="home-link">
+        <div class="home-icon">🏠</div>
+    </a>
+
+    <div class="top-menu">
+        <div class="menu-icon">☰</div>
+        <div class="menu-list">
+            <a href="index.html">Оновити сторінку</a>
+            <a href="../" style="color:var(--accent-color)">Повернутись до UNO</a>
+        </div>
+    </div>
 
     <div class="simple-container">
         <h1 class="brand-name">UNO</h1>
@@ -122,56 +136,12 @@
         </div>
     </div>
 
-    <script>
-        let expr = "";
-        const disp = document.getElementById('display');
+    <div class="simple-footer">
+        <div class="footer-icon" onclick="showModal('info')">❓</div>
+        <div class="footer-icon" onclick="showModal('contact')">✉️</div>
+    </div>
 
-        function setMode(m) {
-            const engPanel = document.getElementById('engPanel');
-            const btnStd = document.getElementById('btnStd');
-            const btnEng = document.getElementById('btnEng');
-
-            if(m === 'eng') {
-                engPanel.classList.add('active');
-                btnEng.classList.add('active');
-                btnStd.classList.remove('active');
-            } else {
-                engPanel.classList.remove('active');
-                btnStd.classList.add('active');
-                btnEng.classList.remove('active');
-            }
-        }
-
-        function add(v) {
-            if (expr === "0" && !isNaN(v)) expr = "";
-            expr += v;
-            update();
-        }
-
-        function clr() { expr = "0"; update(); }
-        
-        function back() {
-            expr = expr.slice(0, -1);
-            if(expr === "") expr = "0";
-            update();
-        }
-
-        function update() {
-            // Відображаємо більш зрозумілі символи для користувача
-            disp.innerText = expr.replace(/Math\./g, '').replace(/\*\*/g, '^');
-        }
-
-        function calc() {
-            try {
-                // Виконуємо обчислення
-                let res = eval(expr);
-                expr = res.toString();
-                update();
-            } catch (e) {
-                disp.innerText = "Помилка";
-                expr = "0";
-            }
-        }
-    </script>
-</body>
-</html>
+    <div id="modalInfo" class="modal-info">
+        <p>Це універсальний калькулятор проекту UNO. Звичайний режим підходить для повсякденних справ, а інженерний дозволяє працювати з функціями, степенями та константами.</p>
+        <button class="modal-close" onclick="closeModal()">Закрити</button>
+    </div>
