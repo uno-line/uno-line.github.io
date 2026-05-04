@@ -6,7 +6,7 @@
     <title>UNO | ІПН Декодер</title>
     <link rel="stylesheet" href="../simple-style.css">
     <style>
-        /* Індивідуальний фон для проекту */
+        /* Фонове зображення саме для цього інструменту */
         body { 
             background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
                               url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600&auto=format&fit=crop'); 
@@ -15,11 +15,15 @@
 </head>
 <body>
 
+    <a href="../" class="home-link">
+        <div class="home-icon">🏠</div>
+    </a>
+
     <div class="top-menu">
         <div class="menu-icon">☰</div>
         <div class="menu-list">
-            <a href="#">ІПН Декодер (UNO)</a>
-            <a href="#" style="color:#555">Майбутні проекти...</a>
+            <a href="index.html">Оновити сторінку</a>
+            <a href="../" style="color:var(--accent-color)">Повернутись до UNO</a>
         </div>
     </div>
 
@@ -47,7 +51,7 @@
     </div>
 
     <div id="modalContact" class="modal-info">
-        <p>Частина проекту <strong>UNO-LINE</strong>.<br><br>Для зауважень та пропозицій звертайтесь:<br>burkotun.uno@gmail.com</p>
+        <p>Частина проекту <strong>UNO</strong>.<br><br>Для зауважень та пропозицій звертайтесь:<br>vitaliy.stanmont@gmail.com</p>
         <button class="modal-close" onclick="closeModal()">Закрити</button>
     </div>
 
@@ -63,7 +67,6 @@
             document.querySelectorAll('.modal-info').forEach(m => m.style.display = 'none');
         }
 
-        // Закриття при кліку поза вікном
         window.onclick = function(event) {
             if (event.target.classList.contains('modal-info')) closeModal();
         }
@@ -81,7 +84,6 @@
             }
 
             if (inn.length === 10) {
-                // 1. Валідація контрольної суми
                 const coefficients = [-1, 5, 7, 9, 4, 6, 10, 5, 7];
                 let checksum = 0;
                 
@@ -97,29 +99,22 @@
                 const checkDigit = (checksum % 11) % 10;
                 const isValidChecksum = checkDigit === parseInt(inn[9]);
 
-                // 2. Розрахунок дати народження
                 const baseDate = new Date(1899, 11, 31);
                 const days = parseInt(inn.substring(0, 5));
                 const birthDate = new Date(baseDate.getTime() + days * 24 * 60 * 60 * 1000);
                 
-                // 3. Розрахунок віку
                 const today = new Date();
                 let age = today.getFullYear() - birthDate.getFullYear();
                 const m = today.getMonth() - birthDate.getMonth();
-                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                    age--;
-                }
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) { age--; }
 
-                // Перевірка на помилки
                 if (!isValidChecksum || age < 0 || age > 125 || isNaN(days)) {
                     resultArea.innerHTML = '<div class="simple-error">Код не вірний</div>';
                     return;
                 }
 
-                // 4. Стать
                 const gender = parseInt(inn[8]) % 2 === 0 ? "Жіноча" : "Чоловіча";
                 
-                // 5. Вивід результату
                 resultArea.innerHTML = `
                     <div class="result-row">
                         <span class="row-label">Дата народження:</span>
