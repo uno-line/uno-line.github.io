@@ -3,139 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNO | ІПН Декодер</title>
+    <title>UNO | Світ Простих Речей</title>
     <link rel="stylesheet" href="simple-style.css">
     <style>
-        /* Індивідуальний фон для проекту */
-        body { 
-            background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
-                              url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600&auto=format&fit=crop'); 
+        body { background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop'); }
+        
+        .hub-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
         }
+
+        .hub-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hub-card:hover {
+            background: rgba(77, 163, 255, 0.1);
+            border-color: var(--accent-color);
+        }
+
+        .hub-icon { font-size: 24px; }
+        .hub-info { text-align: left; }
+        .hub-name { display: block; font-weight: bold; color: var(--accent-color); }
+        .hub-desc { font-size: 12px; color: var(--text-dim); }
     </style>
 </head>
 <body>
 
-    <div class="top-menu">
-        <div class="menu-icon">☰</div>
-        <div class="menu-list">
-            <a href="#">ІПН Декодер (UNO)</a>
-            <a href="#" style="color:#555">Майбутні проекти...</a>
-        </div>
-    </div>
-
     <div class="simple-container">
         <h1 class="brand-name">UNO</h1>
-        <h2 class="tool-name">ІПН Декодер</h2>
-        
-        <p class="simple-subtitle">Введіть податковий номер (10 цифр)</p>
-        
-        <input type="text" id="innInput" class="simple-input" placeholder="0000000000" maxlength="10" inputmode="numeric" autocomplete="off">
-        
-        <div id="resultArea" class="simple-result">
-            <p style="text-align:center; color:#444;">Очікування вводу...</p>
+        <p class="simple-subtitle" style="margin-bottom: 30px;">Екосистема простих інструментів</p>
+
+        <div class="hub-grid">
+            <a href="ipn/" class="hub-card">
+                <div class="hub-icon">🔍</div>
+                <div class="hub-info">
+                    <span class="hub-name">ІПН Декодер</span>
+                    <span class="hub-desc">Дата, вік та стать з номера</span>
+                </div>
+            </a>
+
+            <a href="#" class="hub-card" style="opacity: 0.5;">
+                <div class="hub-icon">⚙️</div>
+                <div class="hub-info">
+                    <span class="hub-name">Новий проект</span>
+                    <span class="hub-desc">Незабаром з'явиться...</span>
+                </div>
+            </a>
         </div>
     </div>
 
-    <div class="simple-footer">
-        <div class="footer-icon" onclick="showModal('info')">❓</div>
-        <div class="footer-icon" onclick="showModal('contact')">✉️</div>
-    </div>
-
-    <div id="modalInfo" class="modal-info">
-        <p>Відображена інформація вирахувана з номера ІПН (ІІН, РНОКПП) за рахунок алгоритму. Дата народження в рідкісних випадках може відрізнятись на один день.</p>
-        <button class="modal-close" onclick="closeModal()">Закрити</button>
-    </div>
-
-    <div id="modalContact" class="modal-info">
-        <p>Частина проекту <strong>UNO-LINE</strong>.<br><br>Для зауважень та пропозицій звертайтесь:<br>burkotun.uno@gmail.com</p>
-        <button class="modal-close" onclick="closeModal()">Закрити</button>
-    </div>
-
-    <script>
-        // --- Управління інтерфейсом ---
-        function showModal(type) {
-            closeModal(); 
-            if(type === 'info') document.getElementById('modalInfo').style.display = 'block';
-            if(type === 'contact') document.getElementById('modalContact').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.querySelectorAll('.modal-info').forEach(m => m.style.display = 'none');
-        }
-
-        // Закриття при кліку поза вікном
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-info')) closeModal();
-        }
-
-        // --- Логіка ІПН ---
-        const input = document.getElementById('innInput');
-        const resultArea = document.getElementById('resultArea');
-
-        input.addEventListener('input', () => {
-            const inn = input.value.trim();
-            
-            if (inn.length < 10) {
-                resultArea.innerHTML = '<p style="text-align:center; color:#444;">Введіть повний код</p>';
-                return;
-            }
-
-            if (inn.length === 10) {
-                // 1. Валідація контрольної суми
-                const coefficients = [-1, 5, 7, 9, 4, 6, 10, 5, 7];
-                let checksum = 0;
-                
-                for (let i = 0; i < 9; i++) {
-                    const digit = parseInt(inn[i]);
-                    if (isNaN(digit)) {
-                        resultArea.innerHTML = '<div class="simple-error">Тільки цифри!</div>';
-                        return;
-                    }
-                    checksum += digit * coefficients[i];
-                }
-                
-                const checkDigit = (checksum % 11) % 10;
-                const isValidChecksum = checkDigit === parseInt(inn[9]);
-
-                // 2. Розрахунок дати народження
-                const baseDate = new Date(1899, 11, 31);
-                const days = parseInt(inn.substring(0, 5));
-                const birthDate = new Date(baseDate.getTime() + days * 24 * 60 * 60 * 1000);
-                
-                // 3. Розрахунок віку
-                const today = new Date();
-                let age = today.getFullYear() - birthDate.getFullYear();
-                const m = today.getMonth() - birthDate.getMonth();
-                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                    age--;
-                }
-
-                // Перевірка на помилки
-                if (!isValidChecksum || age < 0 || age > 125 || isNaN(days)) {
-                    resultArea.innerHTML = '<div class="simple-error">Код не вірний</div>';
-                    return;
-                }
-
-                // 4. Стать
-                const gender = parseInt(inn[8]) % 2 === 0 ? "Жіноча" : "Чоловіча";
-                
-                // 5. Вивід результату
-                resultArea.innerHTML = `
-                    <div class="result-row">
-                        <span class="row-label">Дата народження:</span>
-                        <span class="row-value">${birthDate.toLocaleDateString('uk-UA')}</span>
-                    </div>
-                    <div class="result-row">
-                        <span class="row-label">Стать:</span>
-                        <span class="row-value">${gender}</span>
-                    </div>
-                    <div class="result-row">
-                        <span class="row-label">Повний вік:</span>
-                        <span class="row-value">${age} р.</span>
-                    </div>
-                `;
-            }
-        });
-    </script>
-</body>
+    </body>
 </html>
