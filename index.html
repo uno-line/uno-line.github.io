@@ -24,8 +24,8 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: 0.3s;
             display: flex;
-            align-items: center;
-            gap: 15px;
+            align-items: center; /* Центрування іконки та тексту по вертикалі */
+            gap: 20px; /* Трохи збільшив відступ */
         }
 
         .hub-card:hover {
@@ -33,10 +33,20 @@
             border-color: var(--accent-color);
         }
 
-        .hub-icon { font-size: 24px; }
-        .hub-info { text-align: left; }
+        .hub-icon { 
+            font-size: 24px; 
+            width: 30px; /* Фіксована ширина для іконки */
+            text-align: center; /* Центрування самої іконки всередині блоку */
+            flex-shrink: 0; /* Щоб іконка не стискалася */
+        }
+
+        .hub-info { 
+            text-align: left; 
+            flex: 1; /* Текстовий блок займає весь залишок місця */
+        }
+
         .hub-name { display: block; font-weight: bold; color: var(--accent-color); }
-        .hub-desc { font-size: 12px; color: var(--text-dim); }
+        .hub-desc { font-size: 12px; color: var(--text-dim); line-height: 1.4; }
     </style>
 </head>
 <body>
@@ -55,8 +65,7 @@
             </a>
 
             <a href="calc/" class="hub-card">
-                <div class="hub-icon">🖩</div>
-                <div class="hub-info">
+                <div class="hub-icon">🔢</div> <div class="hub-info">
                     <span class="hub-name">Калькулятор</span>
                     <span class="hub-desc">Звичайний та інженерний режими</span>
                 </div>
