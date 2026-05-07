@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UNO | ІПН Декодер</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+
     <link rel="stylesheet" href="../simple-style.css">
     <style>
-        /* Фонове зображення саме для цього інструменту */
         body { 
-            background-image: #000000; /* Чистий чорний */
+            background-color: #000000;
             background-image: none;
         }
+        /* Стиль для прихованого пункту меню */
+        #installMenuItem { display: none; color: #4da3ff; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -23,6 +28,7 @@
         <div class="menu-icon">☰</div>
         <div class="menu-list">
             <a href="index.html">Оновити сторінку</a>
+            <div id="installMenuItem" onclick="installPWA()">Встановити офлайн</div>
             <a href="../" style="color:var(--accent-color)">Повернутись до UNO</a>
         </div>
     </div>
@@ -56,7 +62,37 @@
     </div>
 
     <script>
+        // --- Логіка PWA ---
+        let deferredPrompt;
+        const installItem = document.getElementById('installMenuItem');
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installItem.style.display = 'block'; // Показуємо пункт меню, якщо встановлення можливе
+        });
+
+        async function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('PWA встановлено');
+                }
+                deferredPrompt = null;
+                installItem.style.display = 'none';
+            }
+        }
+
         // --- Управління інтерфейсом ---
+        document.querySelector('.menu-icon').addEventListener('click', () => {
+            document.querySelector('.menu-list').classList.toggle('active');
+        });
+
         function showModal(type) {
             closeModal(); 
             if(type === 'info') document.getElementById('modalInfo').style.display = 'block';
