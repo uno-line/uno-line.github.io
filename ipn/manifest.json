@@ -1,0 +1,22 @@
+{
+  "name": "UNO | ІПН Декодер",
+  "short_name": "Декодер",
+  "description": "Автономний інструмент для дешифрування ІПН",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "scope": "/ipn/",
+  "icons": [
+    {
+      "src": "../img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "../img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
