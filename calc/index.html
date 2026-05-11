@@ -2,51 +2,139 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UNO-LINE | Калькулятор</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    
     <link rel="stylesheet" href="../simple-style.css">
     <style>
-        body { 
-            background-image: #000000; /* Чистий чорний */
-            background-image: none;
+        /* Блокування скролу та повний екран */
+        html, body { 
+            overflow: hidden; 
+            height: 100%; 
+            margin: 0; 
+            padding: 0;
+            background: #000;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none; /* Заборона жестів масштабування/скролу */
+        }
+
+        /* Адаптація контейнера */
+        .simple-container {
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Навігація нижче заголовка */
+        .pwa-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 0 5px;
+        }
+
+        /* Приховування навігації в режимі PWA (standalone) */
+        @media (display-mode: standalone) {
+            .pwa-nav { display: none; }
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 24px;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 5px;
         }
 
         .calc-display {
             width: 100%; background: var(--input-bg); border: 1px solid var(--border-color);
-            border-radius: 8px; padding: 20px; margin-bottom: 20px; text-align: right;
-            font-size: 24px; color: var(--accent-color); min-height: 70px; word-wrap: break-word;
+            border-radius: 8px; padding: 15px; margin-bottom: 15px; text-align: right;
+            font-size: 28px; color: var(--accent-color); min-height: 80px; word-wrap: break-word;
             box-sizing: border-box;
         }
 
-        .mode-switch { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
-        .mode-btn { cursor: pointer; color: var(--text-dim); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; border-bottom: 2px solid transparent; padding-bottom: 5px; }
+        .mode-switch { display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; }
+        .mode-btn { cursor: pointer; color: var(--text-dim); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid transparent; padding-bottom: 3px; }
         .mode-btn.active { color: var(--accent-color); border-bottom-color: var(--accent-color); }
 
-        .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .calc-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 20px 10px; border-radius: 8px; font-size: 18px; cursor: pointer; transition: 0.2s; outline: none; }
-        .calc-btn:active { background: var(--accent-color); color: #000; }
-        .btn-op { color: var(--accent-color); font-weight: bold; }
+        .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; flex-grow: 0; }
+        
+        /* Посилення контрасту контурів кнопок */
+        .calc-btn { 
+            background: var(--card-bg); 
+            border: 1px solid #444; /* Трохи яскравіше за стандартний --border-color */
+            color: var(--text-main); 
+            padding: 18px 5px; 
+            border-radius: 8px; 
+            font-size: 20px; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            outline: none; 
+        }
+        .calc-btn:active { background: var(--accent-color); color: #000; border-color: var(--accent-color); }
+        .btn-op { color: var(--accent-color); font-weight: bold; border-color: #555; }
         
         .eng-panel { display: none; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px; }
         .eng-panel.active { display: grid; }
+
+        /* Оновлений футер з кнопками-зонами */
+        .footer-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-btn {
+            background: #111; /* Візуально відділена зона */
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 10px;
+            color: var(--text-dim);
+            text-align: center;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: 0.3s;
+        }
+        .footer-btn span { font-size: 18px; }
+        .footer-btn:hover { border-color: var(--accent-color); color: var(--text-main); }
+
+        .mail-link { color: var(--accent-color); text-decoration: underline; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <a href="../" class="home-link">
-        <div class="home-icon">🏠</div>
-    </a>
-
-    <div class="top-menu">
-        <div class="menu-icon">☰</div>
-        <div class="menu-list">
-            <a href="index.html">Оновити сторінку</a>
-            <a href="../" style="color:var(--accent-color)">Повернутись до UNO</a>
-        </div>
-    </div>
-
     <div class="simple-container">
-        <h1 class="brand-name">UNO-LINE</h1>
+        <h1 class="brand-name" style="margin-top:0">UNO-LINE</h1>
+        
+        <div class="pwa-nav">
+            <a href="../" class="nav-btn" title="На головну">🏠</a>
+            <button id="installBtn" class="nav-btn" title="Завантажити додаток">💾</button>
+        </div>
+
         <h2 class="tool-name">Калькулятор</h2>
 
         <div class="mode-switch">
@@ -68,7 +156,7 @@
         </div>
 
         <div class="calc-grid">
-            <button class="calc-btn" style="color:var(--error-color)" onclick="clr()">C</button>
+            <button class="calc-btn" style="color:var(--error-color); border-color: #522;" onclick="clr()">C</button>
             <button class="calc-btn" onclick="back()">←</button>
             <button class="calc-btn btn-op" onclick="add('/')">/</button>
             <button class="calc-btn btn-op" onclick="add('*')">×</button>
@@ -86,30 +174,53 @@
             <button class="calc-btn" onclick="add('1')">1</button>
             <button class="calc-btn" onclick="add('2')">2</button>
             <button class="calc-btn" onclick="add('3')">3</button>
-            <button class="calc-btn" onclick="calculate()" style="grid-row: span 2; background:var(--accent-color); color:#000">=</button>
+            <button class="calc-btn" onclick="calculate()" style="grid-row: span 2; background:var(--accent-color); color:#000; border:none">=</button>
 
             <button class="calc-btn" style="grid-column: span 2;" onclick="add('0')">0</button>
             <button class="calc-btn" onclick="add('.')">.</button>
         </div>
-    </div>
 
-    <div class="simple-footer">
-        <div class="footer-icon" onclick="showModal('info')">❓</div>
-        <div class="footer-icon" onclick="showModal('contact')">✉️</div>
+        <div class="footer-controls">
+            <div class="footer-btn" onclick="showModal('info')">
+                <span>❓</span>Інфо
+            </div>
+            <div class="footer-btn" onclick="showModal('contact')">
+                <span>✉️</span>Зворотній зв'язок
+            </div>
+        </div>
     </div>
 
     <div id="modalInfo" class="modal-info">
-        <p>Універсальний калькулятор з підтримкою базових та інженерних функцій.</p>
+        <p>Універсальний калькулятор з підтримкою базових та інженерних функцій. Працює офлайн як PWA додаток.</p>
         <button class="modal-close" onclick="closeModal()">Закрити</button>
     </div>
 
     <div id="modalContact" class="modal-info">
-        <p>Частина проекту <strong>UNO-LINE</strong>.<br><br>Для зауважень та пропозицій звертайтесь:<br>burkotun.uno@gmail.com</p>
+        <p>Частина проєкту <strong>UNO-LINE</strong>.<br><br>Звертайтесь:<br>
+        <a href="mailto:burkotun.uno@gmail.com" class="mail-link">burkotun.uno@gmail.com</a></p>
         <button class="modal-close" onclick="closeModal()">Закрити</button>
     </div>
 
     <script>
-        // --- Управління інтерфейсом (як в ІПН) ---
+        // --- PWA Встановлення ---
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.style.display = 'block';
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') deferredPrompt = null;
+            }
+        });
+
+        // --- Управління модальними вікнами ---
         function showModal(type) {
             closeModal(); 
             if(type === 'info') document.getElementById('modalInfo').style.display = 'block';
@@ -158,6 +269,7 @@
 
         function calculate() {
             try {
+                // Заміна ^ на ** для eval
                 let res = eval(expr);
                 if (!Number.isInteger(res)) res = Math.round(res * 1000000) / 1000000;
                 expr = res.toString();
@@ -166,6 +278,11 @@
                 disp.innerText = "Помилка";
                 expr = "0";
             }
+        }
+
+        // Реєстрація Service Worker для PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(() => {});
         }
     </script>
 </body>
