@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UNO-LINE | Калькулятор</title>
     
-    <!-- PWA Налаштування -->
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -13,29 +12,27 @@
     
     <link rel="stylesheet" href="../simple-style.css">
     <style>
-        /* Блокування скролу та повний екран */
         html, body { 
             overflow: auto; 
             height: 100%; 
             margin: 0; 
             padding: 0;
             background: #000;
-            font-family: sans-serif; /* Гарантуємо чистий шрифт */
+            font-family: sans-serif;
         }
 
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Центрування по вертикалі */
+            min-height: 100vh;
             margin: 0;
-            padding: 1px; /* Відступи, щоб калькулятор не лип до країв екрана */
+            padding: 1px;
             background: #000;
             font-family: sans-serif;
             box-sizing: border-box;
         }
 
-        /* Адаптація контейнера */
         .simple-container {
             width: 100%;
             max-width: 400px; /* Обмежуємо ширину під мобільний вигляд */
@@ -96,7 +93,6 @@
             line-height: 1;
         }
 
-        /* --- РЕШТА СТИЛІВ --- */
         .tool-name {
             text-align: center;
             font-size: 16px;
@@ -135,7 +131,6 @@
         .eng-panel { display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 8px; }
         .eng-panel.active { display: grid; }
 
-        /* --- ОНОВЛЕНИЙ ФУТЕР: Контрастні кнопки --- */
         .footer-controls {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -172,7 +167,6 @@
 <body>
 
     <div class="simple-container">
-        <!-- ОНОВЛЕНА ШАПКА: Назва та кнопки в один ряд -->
         <div class="pwa-header">
             <h1 class="brand-name">UNO-LINE</h1>
             <div class="header-controls">
@@ -223,8 +217,7 @@
             <button class="calc-btn" style="grid-column: span 2;" onclick="add('0')">0</button>
             <button class="calc-btn" onclick="add('.')">.</button>
         </div>
-
-        <!-- ОНОВЛЕНІ НИЖНІ КНОПКИ: З текстом та контрастом -->
+        
         <div class="footer-controls">
             <div class="footer-btn" onclick="showModal('info')">
                 <span class="footer-btn-icon">❓</span>
@@ -239,7 +232,7 @@
 
     <!-- Модальні вікна -->
     <div id="modalInfo" class="modal-info">
-        <p>Універсальний калькулятор з підтримкою базових та інженерних функцій. Працює офлайн як PWA додаток.</p>
+        <p>Універсальний калькулятор з підтримкою базових та інженерних функцій. Після встановлення працює офлайн.</p>
         <button class="modal-close" onclick="closeModal()">Закрити</button>
     </div>
 
