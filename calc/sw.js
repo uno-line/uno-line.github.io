@@ -1,30 +1,22 @@
 // Назва кешу для версійності
-const CACHE_NAME = 'calc-v3';
+const CACHE_NAME = 'calc-v4';
 const ASSETS = [
   'index.html'
 ];
 
-// Встановлення та кешування
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
-  );
-});
-
-// Робота в офлайн-режимі
-self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    caches.match(e.request).then((res) => res || fetch(e.request))
-  );
-});
-
 self.addEventListener('install', (event) => {
-    // Змушує новий SW активуватися відразу
-    self.skipWaiting();
+  self.skipWaiting();
+});
+
+event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            console.log('Кешування ресурсів...');
+            return cache.addAll(ASSETS);
+        })
+    );
 });
 
 self.addEventListener('activate', (event) => {
-    // Очищення старого кешу
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
@@ -34,20 +26,14 @@ self.addEventListener('activate', (event) => {
                     }
                 })
             );
-        }).then(() => self.clients.claim()) // Негайно беремо контроль над сторінкою
+        }).then(() => self.clients.claim())
     );
 });
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').then((reg) => {
-        reg.addEventListener('updatefound', () => {
-            const newWorker = reg.installing;
-            newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                    // Коли новий SW встановлено, просто перезавантажуємо сторінку
-                    window.location.reload();
-                }
-            });
-        });
-    });
-}
+self.addEventListener('fetch', (event) => {
+    event.respondWith(
+        caches.match(event.request).then((response) => {
+            return response || fetch(event.request);
+        })
+    );
+});
