@@ -1,8 +1,7 @@
 // Назва кешу для версійності
 const CACHE_NAME = 'calc-v2';
 const ASSETS = [
-  'index.html',
-  '../simple-style.css'
+  'index.html'
 ];
 
 // Встановлення та кешування
