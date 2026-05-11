@@ -205,7 +205,7 @@
         <div class="pwa-header">
             <h1 class="brand-name">UNO-LINE</h1>
             <div class="header-controls">
-                <a href="../" class="nav-btn" title="На головну">🏠</a>
+                <a href="../" class="nav-btn" id="homeBtn" title="На головну">🏠</a>
                 <button id="installBtn" class="nav-btn" title="Завантажити додаток" style="display:none;">💾</button>
             </div>
         </div>
@@ -278,7 +278,11 @@
     </div>
 
     <script>
-        // --- PWA Встановлення ---
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            const homeBtn = document.getElementById('homeBtn');
+                if (homeBtn) homeBtn.style.display = 'none';
+        }
+
         let deferredPrompt;
         const installBtn = document.getElementById('installBtn');
 
