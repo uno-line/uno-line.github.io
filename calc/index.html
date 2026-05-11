@@ -27,20 +27,34 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            touch-action: none;
+            min-height: 100vh; /* Центрування по вертикалі */
+            margin: 0;
+            padding: 20px; /* Відступи, щоб калькулятор не лип до країв екрана */
+            background: #000;
+            font-family: sans-serif;
+            box-sizing: border-box;
         }
 
         /* Адаптація контейнера */
         .simple-container {
             width: 100%;
-            max-width: 450px;
-            height: 100vh;
+            max-width: 400px; /* Обмежуємо ширину під мобільний вигляд */
+            height: auto; /* Контейнер підлаштовується під контент, а не екран */
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Рівномірний розподіл */
-            padding: 10px 20px 20px 20px; /* Менший відступ зверху */
-            box-sizing: border-box;
+            gap: 15px; /* Рівномірні відступи між елементами замість розтягування */
+            background: #000;
+            padding: 20px;
+            border-radius: 15px; /* Трохи заокруглимо для десктопного вигляду */
             position: relative;
+        }
+
+        /* Виправляємо сітку, щоб вона не тиснула на футер */
+        .calc-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 8px; 
+            margin-bottom: 5px; 
         }
 
         /* --- НОВИЙ ШАПКА: Все в один рівень --- */
@@ -103,7 +117,6 @@
         .mode-btn { cursor: pointer; color: var(--text-dim); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid transparent; padding-bottom: 2px; }
         .mode-btn.active { color: var(--accent-color); border-bottom-color: var(--accent-color); }
 
-        .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; flex-grow: 1; margin-bottom: 15px; }
         
         .calc-btn { 
             background: var(--card-bg); 
