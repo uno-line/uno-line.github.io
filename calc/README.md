@@ -1,5 +1,5 @@
-# UnoLine Calculator
+# UNO-LINE Calculator
 
-![App Icon](icon-512.png)
+![App Icon](icon-192.png)
 
 Універсальний калькулятор з підтримкою базових та інженерних функцій. Після встановлення працює офлайн, як PWA додаток.
