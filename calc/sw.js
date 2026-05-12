@@ -1,5 +1,5 @@
 // Назва кешу для версійності
-const CACHE_NAME = 'calc-v7';
+const CACHE_NAME = 'calc-v8';
 const ASSETS = [
   'index.html'
 ];
