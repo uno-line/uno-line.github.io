@@ -238,21 +238,33 @@
         </div>
     </div>
 
-    <div class="footer-controls">
-        <div class="footer-btn" onclick="showModal('info')">❓</div>
-        <div class="footer-btn" onclick="showModal('contact')">✉️</div>
+    
+
+        <div class="footer-controls">
+            <div class="footer-btn" onclick="showModal('info')">
+                <span class="footer-btn-icon">❓</span>
+                <span class="footer-btn-text">Інфо</span>
+            </div>
+            <div class="footer-btn" onclick="showModal('contact')">
+                <span class="footer-btn-icon">✉️</span>
+                <span class="footer-btn-text">Пошта</span>
+            </div>
+        </div>
     </div>
 
+    <!-- Модальні вікна -->
     <div id="modalInfo" class="modal-info">
-        <p><strong>UNO-LINE</strong> — це підбірка простих та корисних інструментів. Тут немає реклами, лише чиста функціональність для щоденних завдань.</p>
+        <p>Універсальний калькулятор з підтримкою базових та інженерних функцій. Після встановлення працює офлайн.</p>
         <button class="modal-close" onclick="closeModal()">Закрити</button>
     </div>
 
     <div id="modalContact" class="modal-info">
-        <p>Для зауважень та пропозицій щодо екосистеми <strong>UNO-LINE</strong> звертайтесь:<br><br>burkotun.uno@gmail.com</p>
+        <p>Частина проєкту <strong>UNO-LINE</strong>.<br><br>Звертайтесь:<br>
+        <a href="mailto:burkotun.uno@gmail.com" class="mail-link">burkotun.uno@gmail.com</a></p>
         <button class="modal-close" onclick="closeModal()">Закрити</button>
     </div>
 
+    
     <script>
         // --- Управління інтерфейсом ---
         function showModal(type) {
