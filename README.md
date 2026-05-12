@@ -1,6 +1,6 @@
 # UNO-LINE | Simple IT Solutions
 
-![UNO Banner](https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop)
+![UNO Banner](logo.png)
 
 **UNO-LINE** — це екосистема мінімалістичних веб-інструментів, створених за принципом: **"Одна сторінка — одна функція"**.
 
