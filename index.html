@@ -5,88 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UNO-LINE | Світ Простих Речей</title>
     
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
     <style>
-        /* --- 1. ПЕРЕМІННІ ТА БАЗОВІ НАЛАШТУВАННЯ --- */
+        /* --- 1. ГЛОБАЛЬНІ НАЛАШТУВАННЯ ТА ЗМІННІ --- */
         :root {
-            --accent-color: #4da3ff;   /* Твій фірмовий блакитний */
-            --bg-color: #000000;       /* Чистий чорний */
-            --card-bg: rgba(255, 255, 255, 0.05); 
-            --text-main: #ffffff;
-            --text-dim: #888888;
+            --accent-color: #4da3ff;   /* Основний акцентний колір (блакитний) */
+            --bg-color: #000000;       /* Фон сторінки — чистий чорний */
+            --card-bg: rgba(255, 255, 255, 0.05); /* Напівпрозорий фон для карток */
+            --text-main: #ffffff;      /* Основний колір тексту */
+            --text-dim: #888888;       /* Колір для другорядного тексту */
         }
 
         * {
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* Прибирає синю рамку при натисканні на мобілках */
+            -webkit-tap-highlight-color: transparent; /* Видалення виділення при кліку на мобільних */
         }
 
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
-            height: 100dvh; /* Динамічна висота для мобільних браузерів */
+            height: 100dvh; /* Висота на весь екран з урахуванням мобільних панелей */
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            overflow: hidden; /* Забороняємо зайвий скрол на головній */
+            overflow: hidden; /* Заборона прокрутки головної сторінки */
         }
 
-        /* --- 2. ГОЛОВНИЙ КОНТЕЙНЕР (ЦЕНТРУВАННЯ) --- */
+        /* --- 2. РЕКЛАМНИЙ БАНЕР --- */
+        .ad-container {
+            width: 100%;
+            min-height: 50px;
+            background: #111; /* Фон під рекламу, поки вона завантажується */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid #222;
+        }
+
+        /* --- 3. ГОЛОВНА ОБОРТКА (ЦЕНТРУВАННЯ) --- */
         .app-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
             width: 100%;
-            max-width: 500px; /* Обмеження ширини для естетики */
-            margin: 0 auto;   /* Центрування всього блоку на екрані */
-            height: 100%;
+            max-width: 500px; /* Обмеження ширини для десктопів */
+            margin: 0 auto;
+            height: calc(100% - 60px); /* Вираховуємо висоту за мінусом банера */
             padding: 20px;
             position: relative;
-        }
-
-        /* --- 3. ВЕРХНЄ МЕНЮ --- */
-        .top-nav {
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            padding-top: 10px;
-        }
-
-        .menu-btn {
-            font-size: 28px;
-            color: var(--accent-color);
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .menu-overlay {
-            display: none;
-            position: absolute;
-            top: 50px;
-            left: 20px;
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            z-index: 1000;
-        }
-
-        .menu-overlay.active { display: block; }
-        .menu-overlay a {
-            display: block;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 0;
-            font-size: 14px;
-            border-bottom: 1px solid #222;
         }
 
         /* --- 4. ШАПКА --- */
         .header {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 20px;
             margin-bottom: 30px;
         }
 
@@ -96,6 +70,7 @@
             letter-spacing: 6px;
             color: var(--accent-color);
             margin: 0;
+            text-transform: uppercase;
         }
 
         .subtitle {
@@ -105,7 +80,7 @@
             margin-top: 5px;
         }
 
-        /* --- 5. СПИСОК ІНСТРУМЕНТІВ (HUB) --- */
+        /* --- 5. ХАБ ІНСТРУМЕНТІВ --- */
         .hub-grid {
             width: 100%;
             display: flex;
@@ -122,12 +97,13 @@
             align-items: center;
             gap: 18px;
             text-decoration: none;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: all 0.2s ease;
         }
 
         .hub-card:hover {
             border-color: var(--accent-color);
             transform: translateY(-2px);
+            background: rgba(77, 163, 255, 0.05);
         }
 
         .hub-icon { font-size: 26px; }
@@ -135,35 +111,39 @@
         .hub-title { color: var(--accent-color); font-weight: bold; font-size: 18px; }
         .hub-desc { color: var(--text-dim); font-size: 12px; margin-top: 3px; }
 
-        /* --- 6. ФУТЕР (НИЖНІ ПОСИЛАННЯ) --- */
+        /* --- 6. ФУТЕР (КНОПКИ ВНИЗУ) --- */
         .footer {
-            position: fixed; /* Прив'язка до низу екрана */
+            position: fixed;
             bottom: 30px;
             left: 0;
             width: 100%;
             display: flex;
-            justify-content: center; /* Центрування по горизонталі */
+            justify-content: center;
             gap: 20px;
             padding: 0 20px;
         }
 
         .footer-btn {
             background: #111;
-            border: 2px solid var(--accent-color);
-            border-radius: 5px;
-            padding: 10px 0;
-            width: 120px; /* Фіксована ширина для симетрії */
+            border: 1px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 12px 0;
+            width: 120px;
             color: #fff;
             text-align: center;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             transition: 0.3s;
         }
 
-        .footer-btn:hover { background: var(--accent-color); color: #000; }
+        .footer-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+        }
+
         .footer-btn-icon { font-size: 18px; }
         .footer-btn-text { font-size: 10px; font-weight: bold; text-transform: uppercase; }
 
@@ -172,9 +152,9 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             z-index: 2000;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
         .modal-content {
@@ -188,7 +168,6 @@
             width: 85%;
             max-width: 350px;
             text-align: center;
-            color: #fff; /* Текст білий */
         }
 
         .modal-close {
@@ -199,21 +178,26 @@
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
+            color: #000;
         }
     </style>
 </head>
 <body>
 
+    <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="YYYYYYYYYY"
+             data-ad-format="horizontal"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
     <div class="app-wrapper">
         
-        <nav class="top-nav">
-            <div class="menu-btn" onclick="toggleMenu()">☰</div>
-            <div id="menuOverlay" class="menu-overlay">
-                <a href="index.html">🔄 Оновити</a>
-                <a href="https://github.com/" target="_blank">📂 GitHub</a>
-            </div>
-        </nav>
-
         <header class="header">
             <h1 class="brand-name">UNO-LINE</h1>
             <div class="subtitle">ЕКОСИСТЕМА ПРОСТИХ РЕЧЕЙ</div>
@@ -224,15 +208,15 @@
                 <div class="hub-icon">🔢</div>
                 <div class="hub-info">
                     <span class="hub-title">Калькулятор</span>
-                    <span class="hub-desc">Математичні розрахунки в один клік</span>
+                    <span class="hub-desc">Математичні розрахунки без зайвого</span>
                 </div>
             </a>
 
-            <div class="hub-card" style="opacity: 0.4; cursor: default;">
+            <div class="hub-card" style="opacity: 0.3; cursor: default;">
                 <div class="hub-icon">⚙️</div>
                 <div class="hub-info">
-                    <span class="hub-title">Новий проект</span>
-                    <span class="hub-desc">В розробці...</span>
+                    <span class="hub-title">В розробці</span>
+                    <span class="hub-desc">Новий інструмент скоро тут з'явиться</span>
                 </div>
             </div>
         </main>
@@ -250,49 +234,38 @@
 
     </div>
 
-    <div id="modalInfo" class="modal" onclick="closeModal(event)">
+    <div id="modalInfo" class="modal" onclick="handleOutsideClick(event)">
         <div class="modal-content">
-            <p><strong>UNO-LINE</strong> — це підбірка легких інструментів. Жодної реклами, лише користь для щоденних завдань.</p>
-            <button class="modal-close" onclick="forceClose()">ЗРОЗУМІЛО</button>
+            <p><strong>UNO-LINE</strong> — це набір мінімалістичних веб-інструментів для швидких завдань.</p>
+            <button class="modal-close" onclick="closeAllModals()">ЗАКРИТИ</button>
         </div>
     </div>
 
-    <div id="modalContact" class="modal" onclick="closeModal(event)">
+    <div id="modalContact" class="modal" onclick="handleOutsideClick(event)">
         <div class="modal-content">
-            <p>Маєте ідею чи знайшли помилку? Пишіть нам:<br><br>
-            <strong style="color:var(--accent-color)">burkotun.uno@gmail.com</strong></p>
-            <button class="modal-close" onclick="forceClose()">ЗАКРИТИ</button>
+            <p>Зв'язок з розробником:<br><br>
+            <span style="color:var(--accent-color); font-weight:bold;">burkotun.uno@gmail.com</span></p>
+            <button class="modal-close" onclick="closeAllModals()">ЗАКРИТИ</button>
         </div>
     </div>
 
     <script>
-        // --- Логіка меню ---
-        function toggleMenu() {
-            document.getElementById('menuOverlay').classList.toggle('active');
-        }
-
-        // --- Логіка модальних вікон ---
+        // Відкриття модального вікна за ID
         function openModal(id) {
             document.getElementById(id).style.display = 'block';
         }
 
-        function forceClose() {
+        // Закриття всіх вікон
+        function closeAllModals() {
             document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
         }
 
-        function closeModal(e) {
-            // Закриваємо тільки якщо клікнули на фон, а не на саме вікно
+        // Закриття при кліку на темний фон навколо вікна
+        function handleOutsideClick(e) {
             if (e.target.classList.contains('modal')) {
-                forceClose();
+                closeAllModals();
             }
         }
-
-        // Закриваємо меню, якщо клікнули в іншому місці
-        window.addEventListener('click', function(e) {
-            if (!e.target.matches('.menu-btn')) {
-                document.getElementById('menuOverlay').classList.remove('active');
-            }
-        });
     </script>
 
 </body>
