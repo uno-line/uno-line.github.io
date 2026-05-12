@@ -6,10 +6,153 @@
     <title>UNO-LINE | Світ Простих Речей</title>
     <link rel="stylesheet" href="simple-style.css">
     <style>
-        body { 
-            background-image: #000000; /* Чистий чорний */
-            background-image: none;
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.9);
+            --accent-color: #4da3ff;
+            --text-main: #e0e0e0;
+            --text-dim: #888;
+            --error-color: #ff5e5e;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --input-bg: #000;
         }
+
+        body {
+            background-image: #000000;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+.simple-container {
+    background-color: var(--card-bg);
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+}
+
+.simple-title {
+    font-size: 22px;
+    margin-bottom: 25px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: var(--accent-color);
+    text-transform: uppercase;
+}
+
+.simple-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background-color: var(--input-bg);
+    color: #fff;
+    text-align: center;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.simple-input:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 10px rgba(77, 163, 255, 0.2);
+}
+
+.simple-result {
+    margin-top: 30px;
+    min-height: 100px;
+    text-align: left;
+    border-top: 1px solid #222;
+    padding-top: 20px;
+}
+
+.result-row {
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+}
+
+.row-label { color: var(--text-dim); }
+.row-value { color: #fff; font-weight: 500; }
+
+.simple-error {
+    color: var(--error-color);
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Додаткові стилі для меню та футера */
+.simple-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 15px;
+}
+
+
+
+/* Нові стилі для дворядкового заголовка */
+.brand-name {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: var(--accent-color);
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.tool-name {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--text-main);
+    margin: 5px 0 20px 0;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+/* Кнопка повернення на головну (зліва) */
+.home-link {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    text-decoration: none;
+    color: var(--text-main);
+}
+
+.home-icon {
+    font-size: 20px;
+    background: var(--card-bg);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.home-icon:hover {
+    border-color: var(--accent-color);
+    background: rgba(77, 163, 255, 0.1);
+}
+
+
         
         .hub-grid {
             display: grid;
@@ -53,14 +196,6 @@
     </style>
 </head>
 <body>
-
-    <div class="top-menu">
-        <div class="menu-icon">☰</div>
-        <div class="menu-list">
-            <a href="index.html">Оновити сторінку</a>
-            <a href="https://github.com/" target="_blank">Проект на GitHub</a>
-        </div>
-    </div>
 
     <div class="simple-container">
         <h1 class="brand-name">UNO-LINE</h1>
@@ -123,11 +258,6 @@
         window.onclick = function(event) {
             if (event.target.classList.contains('modal-info')) closeModal();
         }
-
-        // Обробка меню
-        document.querySelector('.menu-icon').addEventListener('click', function() {
-            document.querySelector('.menu-list').classList.toggle('active');
-        });
     </script>
 
 </body>
