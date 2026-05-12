@@ -281,4 +281,19 @@
         }
 
         function closeModal(e) {
-            //
+            // Закриваємо тільки якщо клікнули на фон, а не на саме вікно
+            if (e.target.classList.contains('modal')) {
+                forceClose();
+            }
+        }
+
+        // Закриваємо меню, якщо клікнули в іншому місці
+        window.addEventListener('click', function(e) {
+            if (!e.target.matches('.menu-btn')) {
+                document.getElementById('menuOverlay').classList.remove('active');
+            }
+        });
+    </script>
+
+</body>
+</html>
