@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UNO-LINE | Світ Простих Речей</title>
-    <link rel="stylesheet" href="simple-style.css">
     <style>
         :root {
             --bg-color: #0a0a0a;
@@ -155,7 +154,7 @@
         .hub-name { display: block; font-weight: bold; color: var(--accent-color); }
         .hub-desc { font-size: 12px; color: var(--text-dim); line-height: 1.4; }
 
-                .modal-info {
+        .modal-info {
             display: none;
             position: fixed;
             top: 50%;
@@ -184,7 +183,7 @@
             font-weight: bold;
         }
         
-                .footer-controls {
+        .footer-controls {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
@@ -208,7 +207,6 @@
         
         .footer-btn-icon { font-size: 20px; }
         .footer-btn-text { font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
-        .brand-name { color: var(--accent-color) !important; }
         .footer-btn:hover { background: var(--accent-color); color: #000; }
         .footer-btn:hover .mail-link { color: #000; }
 
@@ -248,9 +246,9 @@
         </div>
     </div>
 
-    <div class="simple-footer">
-        <div class="footer-icon" onclick="showModal('info')">❓</div>
-        <div class="footer-icon" onclick="showModal('contact')">✉️</div>
+    <div class="footer-controls">
+        <div class="footer-btn" onclick="showModal('info')">❓</div>
+        <div class="footer-btn" onclick="showModal('contact')">✉️</div>
     </div>
 
     <div id="modalInfo" class="modal-info">
