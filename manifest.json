@@ -1,0 +1,18 @@
+{
+  "short_name": "Архітектор",
+  "name": "Архітектор — Фабрика мікрододатків",
+  "description": "Платформа для миттєвої генерації калькуляторів та конфігураторів за допомогою ШІ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#4f46e5",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    }
+  ]
+}
