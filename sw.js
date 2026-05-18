@@ -3,7 +3,7 @@
  */
 
 // Назва кешу (змінюй версію при оновленні коду, щоб скинути кеш у користувачів)
-const CACHE_NAME = 'architect-core-v2';
+const CACHE_NAME = 'architect-core-v3';
 
 // Список локальних файлів та CDN, які потрібно зберегти в пам'яті смартфона
 const ASSETS_TO_CACHE = [
