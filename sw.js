@@ -1,5 +1,5 @@
 // Назва кеш-сховища для контролю версій нашого PWA
-const CACHE_NAME = 'app-factory-v1';
+const CACHE_NAME = 'app-factory-v5';
 
 // Масив локальних ресурсів оболонки, які необхідно зберегти в пам'ять пристрою
 const ASSETS_TO_CACHE = [
