@@ -1,8 +1,8 @@
 {
-  "short_name": "Архітектор",
-  "name": "Архітектор — Фабрика мікрододатків",
+  "short_name": "UNO-LINE",
+  "name": "UNO-LINE — Фабрика мікрододатків",
   "description": "Платформа для миттєвої генерації калькуляторів та конфігураторів за допомогою ШІ",
-  "start_url": "./index.html",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#f3f4f6",
   "theme_color": "#4f46e5",
